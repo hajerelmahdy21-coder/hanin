@@ -3,13 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy Birthday Bestie</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cairo:wght@400;600;700;800&family=Montserrat:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;1,700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cairo:wght@400;600;700&family=Montserrat:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap"
+        rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -44,6 +46,7 @@
     </script>
 
     <style>
+        /* Custom Animations & Styles */
         body {
             background-color: #FFF9F7;
             color: #3D2522;
@@ -64,8 +67,15 @@
         }
 
         @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
         }
 
         .stage {
@@ -83,18 +93,25 @@
             filter: drop-shadow(0 4px 15px rgba(255, 112, 77, 0.3));
         }
 
+        /* Text Outline/Shadow for pure image overlay visibility */
         .hero-text-shadow {
-            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 0, 0, 0.6);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.5);
         }
 
+        /* Candle Animation */
         .flame {
             animation: flicker 0.15s infinite alternate ease-in-out;
             transform-origin: center bottom;
         }
 
         @keyframes flicker {
-            0% { transform: scale(1) rotate(-1deg); }
-            100% { transform: scale(1.08) rotate(1deg); }
+            0% {
+                transform: scale(1) rotate(-1deg);
+            }
+
+            100% {
+                transform: scale(1.08) rotate(1deg);
+            }
         }
 
         .flame.off {
@@ -103,102 +120,130 @@
     </style>
 </head>
 
-<body class="min-h-screen bg-salmon-50/40 relative select-none">
+<body class="min-h-screen flex items-center justify-center relative select-none">
 
     <!-- Audio Element -->
     <audio id="bg-music" loop preload="auto">
-        <source src="https://ia801503.us.archive.org/15/items/SanaHelwaYaJameel/SanaHelwaYaJameel.mp3" type="audio/mpeg">
+        <source src="https://ia801503.us.archive.org/15/items/SanaHelwaYaJameel/SanaHelwaYaJameel.mp3"
+            type="audio/mpeg">
     </audio>
 
     <!-- Floating Music Toggle -->
-    <button id="music-btn" class="fixed top-5 left-5 z-50 w-12 h-12 rounded-full bg-white/90 shadow-lg border border-salmon-200 text-salmon-500 flex items-center justify-center transition-all duration-300 active:scale-95 hidden">
-        <span id="music-icon" class="text-2xl">🎵</span>
+    <button id="music-btn"
+        class="fixed top-5 left-5 z-50 w-11 h-11 rounded-full bg-white/90 shadow-md border border-salmon-200 text-salmon-500 flex items-center justify-center transition-all duration-300 active:scale-95 hidden">
+        <span id="music-icon" class="text-xl">🎵</span>
     </button>
 
-    <!-- App Wrapper -->
-    <main class="w-full min-h-screen relative overflow-hidden flex flex-col justify-between">
+    <!-- App Wrapper (Mobile Viewport) -->
+    <main
+        class="w-full max-w-md min-h-screen sm:min-h-[844px] bg-salmon-50/40 relative shadow-2xl overflow-hidden flex flex-col justify-between">
 
         <!-- 1. INTRO & COVER STAGE -->
-        <section id="stage-intro" class="stage active min-h-screen w-full flex-col justify-between relative p-6">
-            <img id="intro-photo" src="ل.jpeg" class="absolute inset-0 w-full h-full object-cover z-0" alt="Bestie Photo">
+        <section id="stage-intro" class="stage active min-h-screen flex-col justify-between relative p-6">
+            <!-- Crystal Clear Background Photo -->
+            <img id="intro-photo" src="ل.jpeg" class="absolute inset-0 w-full h-full object-cover z-0"
+                alt="Bestie Photo">
 
+            <!-- Top Spacer -->
             <div class="z-10"></div>
 
-            <!-- Center: Typewriter Text -->
-            <div class="z-10 my-auto text-center px-4 w-full">
-                <h1 id="typewriter-text" dir="ltr" class="font-serif text-4xl sm:text-5xl text-white font-bold hero-text-shadow leading-relaxed min-h-[100px] flex items-center justify-center flex-wrap"></h1>
+            <!-- Center: English Typewriter Text Overlay (Directly on Image) -->
+            <div class="z-10 my-auto text-center px-4">
+                <h1 id="typewriter-text" dir="ltr"
+                    class="font-serif text-3xl sm:text-4xl text-white font-semibold hero-text-shadow leading-relaxed min-h-[90px] flex items-center justify-center flex-wrap">
+                </h1>
             </div>
 
-            <!-- Bottom Button -->
-            <div class="z-10 mb-10 text-center w-full px-4">
-                <button id="start-btn" class="w-full max-w-xs bg-salmon-500 hover:bg-salmon-600 active:scale-95 text-white font-bold text-xl py-4 rounded-full shadow-2xl border-2 border-white/40 transition-all duration-300 flex items-center justify-center gap-2 mx-auto tracking-wide">
-                    <span>دوسي هنا يا بطه</span>
+            <!-- Bottom Interactive Trigger Button -->
+            <div class="z-10 mb-8 text-center">
+                <button id="start-btn"
+                    class="bg-salmon-500/90 hover:bg-salmon-600 text-white font-medium px-8 py-3.5 rounded-full shadow-lg backdrop-blur-md border border-white/30 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2 mx-auto">
+                    <span> دوسي هنا يابطه</span>
                 </button>
             </div>
         </section>
 
         <!-- 2. COUNTDOWN STAGE -->
-        <section id="stage-countdown" class="stage min-h-screen w-full flex-col items-center justify-center relative p-6 bg-white">
+        <section id="stage-countdown"
+            class="stage min-h-screen flex-col items-center justify-center relative p-6 bg-white">
             <div class="relative flex items-center justify-center">
-                <div class="w-56 h-56 rounded-full border-4 border-salmon-100 border-t-salmon-500 animate-spin"></div>
+                <div class="w-48 h-48 rounded-full border-4 border-salmon-100 border-t-salmon-500 animate-spin"></div>
                 <div class="absolute inset-0 flex flex-col items-center justify-center">
-                    <span class="font-sans text-sm tracking-widest text-salmon-400 font-bold uppercase mb-2">GET READY</span>
-                    <span id="countdown-num" class="font-serif text-8xl font-bold text-salmon-500 glow-shadow">3</span>
+                    <span class="font-sans text-xs tracking-widest text-salmon-400 font-bold uppercase mb-1">GET
+                        READY</span>
+                    <span id="countdown-num" class="font-serif text-7xl font-bold text-salmon-500 glow-shadow">3</span>
                 </div>
             </div>
         </section>
 
         <!-- 3. RAPID MOBILE PHOTO GALLERY STAGE -->
-        <section id="stage-gallery" class="stage min-h-screen w-full flex-col justify-between relative p-5 bg-salmon-50">
-            <div class="pt-4 px-2 flex items-center justify-between z-10 w-full max-w-md mx-auto">
+        <section id="stage-gallery" class="stage min-h-screen flex-col justify-between relative p-4 bg-salmon-50">
+            <!-- Gallery Top Header -->
+            <div class="pt-4 px-2 flex items-center justify-between z-10">
                 <div>
                     <span class="text-xs font-bold tracking-widest text-salmon-400 uppercase">MEMORIES</span>
-                    <h2 class="text-2xl font-bold text-deep">ذكرياتنا سوا ❤️</h2>
+                    <h2 class="text-xl font-bold text-deep">ذكرياتنا سوا ❤️</h2>
                 </div>
-                <div class="text-base font-bold text-salmon-500 bg-white px-4 py-1.5 rounded-full shadow-sm border border-salmon-100">
+                <div
+                    class="text-sm font-semibold text-salmon-500 bg-white px-3 py-1 rounded-full shadow-sm border border-salmon-100">
                     <span id="gallery-counter">1</span> / <span id="gallery-total">5</span>
                 </div>
             </div>
 
-            <div class="w-full max-w-md mx-auto bg-salmon-200/50 h-2 rounded-full overflow-hidden my-4 z-10 flex gap-1">
+            <!-- Progress Indicators Bar -->
+            <div class="w-full bg-salmon-200/50 h-1.5 rounded-full overflow-hidden my-3 z-10 flex gap-1 px-1">
                 <div id="progress-bar" class="h-full bg-salmon-500 rounded-full transition-all duration-100 w-0"></div>
             </div>
 
-            <!-- Gallery Image Container -->
-            <div class="flex-1 my-auto flex items-center justify-center py-2 relative w-full">
-                <div class="w-full max-w-md h-[480px] bg-white p-4 rounded-3xl shadow-xl border border-salmon-100 flex flex-col justify-between relative overflow-hidden">
-                    <img id="gallery-img" src="" class="w-full h-[390px] object-cover rounded-2xl transition-all duration-500 shadow-inner" alt="Memory Photo">
-                    <p id="gallery-caption" class="text-center text-deep font-bold text-base mt-2 my-auto"></p>
+            <!-- Photo Display Container -->
+            <div class="flex-1 my-auto flex items-center justify-center py-2 relative">
+                <div
+                    class="w-full h-[460px] bg-white p-3 rounded-2xl shadow-xl border border-salmon-100 flex flex-col relative overflow-hidden">
+                    <img id="gallery-img" src=""
+                        class="w-full h-[380px] object-cover rounded-xl transition-all duration-500" alt="Memory Photo">
+                    <p id="gallery-caption" class="text-center text-deep font-semibold text-sm mt-3 my-auto"></p>
                 </div>
             </div>
 
-            <div class="text-center pb-4 text-sm font-semibold text-salmon-400">
-
+            <!-- Touch Hint -->
+            <div class="text-center pb-4 text-xs text-salmon-400">
             </div>
         </section>
 
         <!-- 4. FINAL BIRTHDAY LETTER & CANDLE STAGE -->
-        <section id="stage-letter" class="stage min-h-screen w-full flex-col justify-center items-center relative p-5 bg-salmon-50/60">
-            <div class="w-full max-w-md bg-white rounded-3xl p-7 shadow-2xl border border-salmon-100 text-center relative overflow-hidden my-auto">
-                <div class="w-20 h-1.5 bg-salmon-200 rounded-full mx-auto mb-6"></div>
+        <section id="stage-letter"
+            class="stage min-h-screen flex-col justify-center items-center relative p-5 bg-salmon-50/60">
+            <div
+                class="w-full bg-white rounded-3xl p-6 shadow-xl border border-salmon-100 text-center relative overflow-hidden my-auto">
+                <div class="w-20 h-1 bg-salmon-200 rounded-full mx-auto mb-6"></div>
 
+                <!-- Interactive Candle Area -->
                 <div id="cake-area" class="relative w-16 h-20 mx-auto mb-3 cursor-pointer">
-                    <div id="flame" class="flame absolute -top-4 left-1/2 -translate-x-1/2 w-4 h-7 bg-gradient-to-t from-orange-500 via-amber-400 to-yellow-200 rounded-full shadow-[0_0_15px_#ff9478]"></div>
+                    <div id="flame"
+                        class="flame absolute -top-4 left-1/2 -translate-x-1/2 w-4 h-7 bg-gradient-to-t from-orange-500 via-amber-400 to-yellow-200 rounded-full shadow-[0_0_15px_#ff9478]">
+                    </div>
                     <div class="w-1 h-3 bg-gray-600 mx-auto rounded-t-sm"></div>
-                    <div class="w-4 h-12 bg-gradient-to-r from-salmon-300 via-salmon-200 to-salmon-300 mx-auto rounded-t-md shadow-inner"></div>
+                    <div
+                        class="w-4 h-12 bg-gradient-to-r from-salmon-300 via-salmon-200 to-salmon-300 mx-auto rounded-t-md shadow-inner">
+                    </div>
                 </div>
-                <p id="candle-hint" class="text-xs font-bold text-salmon-500 mb-6">اتمنى امنيه واطفى الشمعه (دوسي عليها)</p>
+                <p id="candle-hint" class="text-xs font-semibold text-salmon-500 mb-6">اتمنى امنيه واطفى الشمعه (دوسي
+                    عليها)</p>
 
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-deep mb-4">إلى حنتى ❤️</h2>
-                <div class="text-deep/90 text-base leading-relaxed space-y-3 mb-6 text-right font-semibold">
-                    <p>كل سنة وأنتي طيبة وبخير يابطه!</p>
-                    <p>وجودك في حياتي نعمة كبيرة ربنا يديمها، يارب السنة دي تكون كلها فرح ونجاح وتحققي كل اللي بتتمنيه </p>
-                    <p class="text-center font-serif text-salmon-500 font-bold text-lg pt-2" dir="ltr">Happy Birthday My Beautiful Girl!</p>
+                <!-- Message Body -->
+                <h2 class="text-2xl font-bold text-deep mb-4">إلى حنتي ❤️</h2>
+                <div class="text-deep/80 text-sm leading-relaxed space-y-3 mb-6 text-right">
+                    <p>كل سنة وأنتي طيبة وبخير يا بطه!</p>
+                    <p>وجودك في حياتي نعمة كبيرة ربنا يديمها، يارب السنة دي تكون كلها فرح ونجاح وتحققي كل اللي بتتمنيه
+                        واشوفك عروسه علشان عايزه البس فستان</p>
+                    <p class="text-center font-serif text-salmon-500 font-bold text-base pt-2" dir="ltr">Happy Birthday
+                        My Beautiful Girl!</p>
                 </div>
 
-                <div class="border-t border-salmon-100 pt-4 text-xs font-semibold text-deep/70">
+                <!-- Signature -->
+                <div class="border-t border-salmon-100 pt-4 text-xs text-deep/60">
                     <span>دائماً وأبداً، </span>
-                    <span class="font-bold text-salmon-500 text-sm">صديقتك الصدوقة</span>
+                    <span class="font-bold text-salmon-500">صديقتك الصدوقة</span>
                 </div>
             </div>
         </section>
@@ -207,29 +252,31 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            // Photo Array for Gallery (يمكنك تغيير الصور من هنا)
             const galleryData = [
                 {
                     url: "h.jpeg",
-                    caption: "أول ضحكة وذكرياتنا الحلوة سوا ❤️"
+                    caption: "أول ضحكة وذكرياتنا الحلوة سوا "
                 },
                 {
                     url: "f.jpeg",
-                    caption: "القعدة اللي ما تشبعش منها ✨"
+                    caption: " القعدة اللي ما تشبعش منها "
                 },
                 {
                     url: "g.jpeg",
-                    caption: "كل لحظة معاكي ليها طعم تاني ❤️"
+                    caption: "كل لحظة معاكي ليها طعم تاني"
                 },
                 {
-                    url: "l.jpeg",
-                    caption: "أحلى صاحبة في الدنيا كلها ✨"
+                    url: "mh.jpeg",
+                    caption: "أحلى صاحبة في الدنيا كلها "
                 },
                 {
-                    url: "ع.jpeg",
-                    caption: "اضحكى ... دايما ضحكتك حلوه ❤️"
+                    url: "لا.jpeg",
+                    caption: "اضحكى ... دايما ضحكتك حلوه❤️"
                 }
             ];
 
+            // Elements
             const stageIntro = document.getElementById("stage-intro");
             const stageCountdown = document.getElementById("stage-countdown");
             const stageGallery = document.getElementById("stage-gallery");
@@ -251,7 +298,8 @@
 
             let isPlaying = false;
 
-            const textToType = "Happy Birthday Bestie ";
+            // Typewriter Engine (Realtime Letter by Letter)
+            const textToType = "Happy Birthday Bestie";
             let charIndex = 0;
 
             function typeNextChar() {
@@ -270,9 +318,11 @@
                 }
             }
 
+            // Initialize Typewriter on Load
             typewriterText.innerHTML = '<span class="cursor-blink"></span>';
-            setTimeout(typeNextChar, 400);
+            setTimeout(typeNextChar, 500);
 
+            // Music Engine
             function playAudio() {
                 bgMusic.play().then(() => {
                     isPlaying = true;
@@ -293,6 +343,7 @@
                 }
             });
 
+            // Stage Transition Function
             function goToStage(fromStage, toStage) {
                 fromStage.classList.remove("active");
                 setTimeout(() => {
@@ -304,12 +355,14 @@
                 }, 800);
             }
 
+            // Start Button Click -> Start Music & Countdown
             startBtn.addEventListener("click", () => {
                 playAudio();
                 goToStage(stageIntro, stageCountdown);
                 startCountdown();
             });
 
+            // Countdown Engine
             function startCountdown() {
                 let count = 3;
                 const countInterval = setInterval(() => {
@@ -324,13 +377,14 @@
                 }, 1000);
             }
 
+            // Gallery Engine
             let currentGalleryIndex = 0;
             galleryTotal.textContent = galleryData.length;
 
             function startGallery() {
                 showGallerySlide(currentGalleryIndex);
 
-                const slideDuration = 4000;
+                const slideDuration = 4000; // 3.5 seconds per photo
                 let progress = 0;
 
                 const progressInterval = setInterval(() => {
@@ -358,16 +412,18 @@
                 galleryCounter.textContent = index + 1;
             }
 
+            // Candle Blowing Effect
             const cakeArea = document.getElementById("cake-area");
             const flame = document.getElementById("flame");
             const candleHint = document.getElementById("candle-hint");
 
             cakeArea.addEventListener("click", () => {
                 flame.classList.add("off");
-                candleHint.textContent = "اتمنيتي أمنيتك! كل سنة وأنتي طيبة ✨";
+                candleHint.textContent = "اتمنيتي أمنيتك ! كل سنة وأنتي طيبة ";
                 triggerConfetti();
             });
 
+            // Confetti Effect
             function triggerConfetti() {
                 if (typeof confetti === 'function') {
                     confetti({
